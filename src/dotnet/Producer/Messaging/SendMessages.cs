@@ -4,7 +4,8 @@ namespace Producer.Messaging;
 
 public abstract class SendMessages
 {
-    private readonly string[] _users = {"eabara", "jsmith", "sgarcia", "jbernard", "htanaka", "awalther"};
+    protected string firstTopicName = "first.messages";
+    protected readonly string[] Users = {"eabara", "jsmith", "sgarcia", "jbernard", "htanaka", "awalther"};
     private readonly string[] _items = {"book", "alarm clock", "t-shirts", "gift card", "batteries"};
     private readonly Random _rnd = new Random();
     protected async Task Produce(IProducer<string,string> producer, string topic)
@@ -14,7 +15,7 @@ public abstract class SendMessages
         const int numMessages = 10;
         for (int i = 0; i < numMessages; ++i)
         {
-            var user = _users[_rnd.Next(_users.Length)];
+            var user = Users[_rnd.Next(Users.Length)];
             var item = _items[_rnd.Next(_items.Length)];
 
             try

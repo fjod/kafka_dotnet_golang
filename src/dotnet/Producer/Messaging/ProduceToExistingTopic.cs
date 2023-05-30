@@ -13,9 +13,6 @@ public class ProduceToExistingTopic : SendMessages
     public async Task Perform(IConfiguration configuration)
     {
         using var producer = new ProducerBuilder<string, string>(configuration.AsEnumerable()).Build();
-
-        const string topic = "first.messages";
-
-        await Produce(producer, topic);
+        await Produce(producer, firstTopicName);
     }
 }

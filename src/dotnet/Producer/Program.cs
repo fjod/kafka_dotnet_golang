@@ -1,21 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.Diagnostics;
-using Microsoft.Extensions.Configuration;
 using Producer;
-using Producer.Messaging;
-
-async Task Test1(IConfiguration configuration)
-{
-    var existing = new ProduceToExistingTopic();
-    await existing.Perform(configuration);
-}
-
-async Task Test2(IConfiguration configuration)
-{
-    var newTopic = new CreateTopicAndProduce();
-    await newTopic.Perform(configuration, "testTopic");
-}
+using Producer.StudyTypes;
 
 Console.WriteLine("Producer starting...");
 
@@ -24,7 +11,7 @@ var configuration = Settings.Get();
 Stopwatch sw = new Stopwatch();
 sw.Start();
 
-//await Test1(configuration);
-//await Test2(configuration);
+var study = TestingFactory.Get(StudyType.WithCustomPartitioner);
+await study(configuration);
 
 Console.WriteLine($"Producer finished in {sw.ElapsedMilliseconds} ms");
