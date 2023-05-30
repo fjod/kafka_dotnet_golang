@@ -2,6 +2,16 @@
 version: '2'
 services:
 
+  producer: 
+    container_name: producer
+    build:
+      context: ./src/dotnet/Producer
+      dockerfile: DockerFile
+    depends_on:
+      - kafka0
+    environment:
+      STUDY_TYPE: SimpleProduce
+
   kafka-ui:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest

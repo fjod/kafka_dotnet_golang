@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Producer.StudyTypes;
 
 namespace Producer;
 
@@ -14,5 +15,18 @@ public static class Settings
         return new ConfigurationBuilder()
             .AddIniFile(propPath)
             .Build();
-    } 
+    }
+
+    public static StudyType? GetStudyType()
+    {
+        var value = Environment.GetEnvironmentVariable("STUDY_TYPE");
+        if (value == null) return null;
+
+        if (Enum.TryParse(value, out StudyType type))
+        {
+            return type;
+        }
+
+        return null;
+    }
 }
