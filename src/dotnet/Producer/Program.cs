@@ -40,7 +40,7 @@ bool CheckIfClusterIsAvailable(IAdminClient client)
 {
     try
     {
-        var metadata = client.GetMetadata(TimeSpan.FromSeconds(5));
+        var metadata = client.GetMetadata(TimeSpan.FromSeconds(1));
         Console.WriteLine($"Cluster has {metadata.Brokers.Count} brokers:");
         foreach (var broker in metadata.Brokers)
         {
