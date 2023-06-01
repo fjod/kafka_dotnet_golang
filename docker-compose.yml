@@ -1,14 +1,25 @@
 ---
 version: '2'
 services:
-
-  producer: 
+  
+  consumer:
+      container_name: consumer
+      build:
+        context: ./src/dotnet/
+        dockerfile: ConsumerDockerFile
+      depends_on:
+        - kafka0
+        - kafka-connect0
+        - schemaregistry0
+        - kafka-ui
+  
+  producer:
     container_name: producer
     build:
-      context: ./src/dotnet/Producer
-      dockerfile: DockerFile
+      context: ./src/dotnet/
+      dockerfile: ProducerDockerFile
     depends_on:
-      - kafka0      
+      - kafka0
       - kafka-connect0
       - schemaregistry0
       - kafka-ui
@@ -16,7 +27,7 @@ services:
       STUDY_TYPE: SimpleProduceWithParameters
       PRODUCE_DELAY_MS: 1000
       PRODUCE_AMOUNT: 5
-
+      
   kafka-ui:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest

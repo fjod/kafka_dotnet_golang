@@ -1,28 +1,27 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Producer.StudyTypes;
 
-namespace Producer;
+namespace Common;
 
 public static class Settings
 {
-    public static IConfiguration Get()
+    public static IConfiguration Get(bool isProducer)
     {
         var exePath = System.Reflection.Assembly.GetEntryAssembly()?.Location;
         if (exePath == null) throw new Exception("Cant find current location");
         var basePath = Path.GetDirectoryName(exePath);
         if (basePath == null) throw new Exception("Cant create base path for settings");
-        var propPath = Path.Combine(basePath, "producer.properties");
+        var propPath = Path.Combine(basePath, isProducer ? "producer.properties" : "consumer.properties");
         return new ConfigurationBuilder()
             .AddIniFile(propPath)
             .Build();
     }
 
-    public static StudyType? GetStudyType()
+    public static ProducerStudyType? GetStudyType()
     {
         var value = Environment.GetEnvironmentVariable("STUDY_TYPE");
         if (value == null) return null;
 
-        if (Enum.TryParse(value, out StudyType type))
+        if (Enum.TryParse(value, out ProducerStudyType type))
         {
             return type;
         }

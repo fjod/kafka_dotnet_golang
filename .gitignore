@@ -1,3 +1,8 @@
 /src/dotnet/.idea
 /src/dotnet/Producer/bin
 /src/dotnet/Producer/obj
+/src/dotnet/Consumer/bin
+/src/dotnet/Consumer/obj
+/src/dotnet/Common/bin
+/src/dotnet/Common/obj
+.idea

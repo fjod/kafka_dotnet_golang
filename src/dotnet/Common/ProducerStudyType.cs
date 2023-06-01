@@ -1,6 +1,6 @@
-﻿namespace Producer.StudyTypes;
+﻿namespace Common;
 
-public enum StudyType
+public enum ProducerStudyType
 {
     SimpleProduce,
     WithNewTopic,

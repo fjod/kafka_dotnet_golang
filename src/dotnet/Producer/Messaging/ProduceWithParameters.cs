@@ -1,4 +1,5 @@
-﻿using Confluent.Kafka;
+﻿using Common;
+using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 
 namespace Producer.Messaging;
