@@ -10,15 +10,9 @@ Console.WriteLine("Producer starting..");
 
 var configuration = Settings.Get();
 
-Stopwatch sw = new Stopwatch();
-sw.Start();
-
-var studyType = Settings.GetStudyType();
-Console.WriteLine(studyType != null ? $"Found env var studyType =  {studyType}" : "No env var studyType found, using SimpleProduce");
-
 using var adminClient = new AdminClientBuilder(configuration.AsEnumerable()).Build();
 bool cluserIsHere = false;
-for (int i = 0; i < 50; i++)
+for (int i = 0; i < 30; i++)
 {
     cluserIsHere = CheckIfClusterIsAvailable(adminClient);
     if (cluserIsHere) break;
@@ -27,9 +21,15 @@ for (int i = 0; i < 50; i++)
 
 if (!cluserIsHere)
 {
-    Console.WriteLine("Cant connect to cluster in 50 s");
+    Console.WriteLine("Can't connect to cluster in 60 s, shutting down..");
     return;
 }
+
+Stopwatch sw = new Stopwatch();
+sw.Start();
+
+var studyType = Settings.GetStudyType();
+Console.WriteLine(studyType != null ? $"Found env var studyType =  {studyType}" : "No env var studyType found, using SimpleProduce");
 
 var study = TestingFactory.Get(studyType ?? StudyType.SimpleProduce);
 await study(configuration);
@@ -51,7 +51,7 @@ bool CheckIfClusterIsAvailable(IAdminClient client)
     }
     catch (Exception e)
     {
-        Console.WriteLine($"Failed to get metadata: {e.Message}");
+        Console.WriteLine($"Failed to connect: {e.Message}");
     }
 
     return false;
