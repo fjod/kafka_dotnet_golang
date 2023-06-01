@@ -8,7 +8,7 @@ namespace Producer.Messaging;
 /// 9092 : "first.messages"
 /// 9093 : "second.messages" , "second.users"
 /// </summary>
-public class ProduceToExistingTopic : SendMessages
+public class SimpleProduce : SendMessages
 {
     public async Task Perform(IConfiguration configuration)
     {

@@ -13,7 +13,7 @@ public static class TestingFactory
         {
             StudyType.SimpleProduce => async configuration =>
             {
-                var existing = new ProduceToExistingTopic();
+                var existing = new SimpleProduce();
                 await existing.Perform(configuration);
             },
             StudyType.WithNewTopic => async configuration =>
@@ -25,6 +25,11 @@ public static class TestingFactory
             {
                 var custom = new CustomPartitioner();
                 await custom.Perform(configuration);
+            },
+            StudyType.SimpleProduceWithParameters => async configuration =>
+            {
+                var withParams = new ProduceWithParameters();
+                await withParams.Perform(configuration);
             },
             _ => throw new ArgumentOutOfRangeException(nameof(input), input, "no delegate for such input")
         };

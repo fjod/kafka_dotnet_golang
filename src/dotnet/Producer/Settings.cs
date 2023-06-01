@@ -29,4 +29,26 @@ public static class Settings
 
         return null;
     }
+    
+    public static (int? delay, int? amount) GetProduceParameters()
+    {
+        int? delay = null;
+        var value = Environment.GetEnvironmentVariable("PRODUCE_DELAY_MS");
+
+        if (value != null && int.TryParse(value, out int d))
+        {
+            delay = d;
+        }
+
+        int? amount = null;
+        value = Environment.GetEnvironmentVariable("PRODUCE_AMOUNT");
+
+        if (value != null && int.TryParse(value, out int a))
+        {
+            amount = a;
+        }
+
+        Console.WriteLine($"Using delay {delay} and amount {amount} in producing");
+        return (delay, amount);
+    }
 }

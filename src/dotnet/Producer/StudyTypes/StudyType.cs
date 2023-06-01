@@ -4,5 +4,6 @@ public enum StudyType
 {
     SimpleProduce,
     WithNewTopic,
-    WithCustomPartitioner
+    WithCustomPartitioner,
+    SimpleProduceWithParameters
 }

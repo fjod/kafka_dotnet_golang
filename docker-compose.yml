@@ -8,9 +8,14 @@ services:
       context: ./src/dotnet/Producer
       dockerfile: DockerFile
     depends_on:
-      - kafka0
+      - kafka0      
+      - kafka-connect0
+      - schemaregistry0
+      - kafka-ui
     environment:
-      STUDY_TYPE: SimpleProduce
+      STUDY_TYPE: SimpleProduceWithParameters
+      PRODUCE_DELAY_MS: 1000
+      PRODUCE_AMOUNT: 5
 
   kafka-ui:
     container_name: kafka-ui
