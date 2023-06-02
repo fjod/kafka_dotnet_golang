@@ -35,3 +35,5 @@ for kafka clusters to become operational.
 To observe topics and messages, visit http://localhost:8080/ when containers are up and running.
 
 * Message has random key and value (selected from perspective hardcoded arrays of 10 samples).
+
+* If you want to debug code, change `bootstrap.servers=kafka0:29092`  to `bootstrap.servers=localhost:9092` in .properties file.
