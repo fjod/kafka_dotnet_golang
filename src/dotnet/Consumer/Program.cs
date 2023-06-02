@@ -1,21 +1,17 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Common;
-using Consumer.Messaging;
+using Common.StudyTypes;
+using Consumer;
 
 Console.WriteLine("Consumer starting..");
-string firstTopicName = "first.messages";
 
 var configuration = Settings.Get(false);
 ClusterCheck clusterCheck = new ClusterCheck();
 if (!clusterCheck.CheckIfClusterIsAvailable(configuration)) return;
 
-CancellationTokenSource cts = new CancellationTokenSource();
-Console.CancelKeyPress += (_, e) =>
-{
-    e.Cancel = true; // prevent the process from terminating.
-    cts.Cancel();
-};
+var studyType = Settings.GetStudyType<ConsumerStudyType>();
+Console.WriteLine(studyType != null ? $"Found env var studyType =  {studyType}" : "No env var studyType found, using SimpleConsume");
 
-var consumer = new SimpleConsume();
-consumer.Perform(configuration, cts, firstTopicName);
+var study = TestingFactory.Get(studyType ?? ConsumerStudyType.SimpleConsume);
+await study(configuration);

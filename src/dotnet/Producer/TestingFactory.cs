@@ -1,10 +1,9 @@
 ﻿using Common;
+using Common.StudyTypes;
 using Microsoft.Extensions.Configuration;
 using Producer.Messaging;
 
 namespace Producer;
-
-public delegate Task StudyWork(IConfiguration configuration);
 
 public static class TestingFactory
 {

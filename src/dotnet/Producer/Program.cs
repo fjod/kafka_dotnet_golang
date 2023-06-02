@@ -2,6 +2,7 @@
 
 using System.Diagnostics;
 using Common;
+using Common.StudyTypes;
 using Producer;
 
 Console.WriteLine("Producer starting..");
@@ -14,7 +15,7 @@ if (!clusterCheck.CheckIfClusterIsAvailable(configuration)) return;
 Stopwatch sw = new Stopwatch();
 sw.Start();
 
-var studyType = Settings.GetStudyType();
+var studyType = Settings.GetStudyType<ProducerStudyType>();
 Console.WriteLine(studyType != null ? $"Found env var studyType =  {studyType}" : "No env var studyType found, using SimpleProduce");
 
 var study = TestingFactory.Get(studyType ?? ProducerStudyType.SimpleProduce);

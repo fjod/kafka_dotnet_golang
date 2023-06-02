@@ -5,7 +5,7 @@ namespace Consumer.Messaging;
 
 public class SimpleConsume
 {
-    public void Perform(IConfiguration configuration, CancellationTokenSource cts, string topicName)
+    public void Perform(IConfiguration configuration, string topicName)
     {
         using var consumer = new ConsumerBuilder<string, string>(configuration.AsEnumerable()).Build();
         consumer.Subscribe(topicName);
@@ -21,7 +21,6 @@ public class SimpleConsume
                         $"Consumed event from topic {topicName} with key {cr.Message.Key,-10} and value {cr.Message.Value}. Offset committed {cr.Offset}");
                     consumer.Commit(cr);
                 }
-                if (cts.Token.IsCancellationRequested)break;
             }
         }
         catch (OperationCanceledException)

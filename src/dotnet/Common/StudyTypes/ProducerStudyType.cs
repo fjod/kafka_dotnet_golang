@@ -1,4 +1,4 @@
-﻿namespace Common;
+﻿namespace Common.StudyTypes;
 
 public enum ProducerStudyType
 {

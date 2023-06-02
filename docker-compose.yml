@@ -12,7 +12,9 @@ services:
         - kafka-connect0
         - schemaregistry0
         - kafka-ui
-  
+      environment:
+        STUDY_TYPE: UsingDataflow
+
   producer:
     container_name: producer
     build:

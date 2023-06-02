@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Common.StudyTypes;
+using Microsoft.Extensions.Configuration;
 
 namespace Common;
 
@@ -16,12 +17,13 @@ public static class Settings
             .Build();
     }
 
-    public static ProducerStudyType? GetStudyType()
+    public static T? GetStudyType<T>()
+    where T: struct
     {
         var value = Environment.GetEnvironmentVariable("STUDY_TYPE");
         if (value == null) return null;
 
-        if (Enum.TryParse(value, out ProducerStudyType type))
+        if (Enum.TryParse(value, out T type))
         {
             return type;
         }
