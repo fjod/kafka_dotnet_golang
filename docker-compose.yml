@@ -13,7 +13,7 @@ services:
         - schemaregistry0
         - kafka-ui
       environment:
-        STUDY_TYPE: UsingDataflow
+        STUDY_TYPE: ConsumeFromTopic
 
   producer:
     container_name: producer

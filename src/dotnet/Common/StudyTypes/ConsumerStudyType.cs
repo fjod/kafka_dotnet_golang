@@ -3,5 +3,6 @@
 public enum ConsumerStudyType
 {
     SimpleConsume,
-    UsingDataflow
+    UsingDataflow,
+    ConsumeFromTopic
 }

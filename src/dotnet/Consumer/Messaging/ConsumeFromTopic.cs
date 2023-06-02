@@ -3,12 +3,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace Consumer.Messaging;
 
-public class SimpleConsume
+public class ConsumeFromTopic
 {
     public void Perform(IConfiguration configuration, string topicName)
     {
         using var consumer = new ConsumerBuilder<string, string>(configuration.AsEnumerable()).Build();
-        consumer.Subscribe(topicName);
+        var partition = new TopicPartition(topicName, 0); // specify the partition you want to consume from
+        consumer.Assign(new[] { partition }); // assign the partition to the consumer
+        
         try
         {
             while (true)
