@@ -1,7 +1,17 @@
 ---
 version: '2'
 services:
-  
+  producer_go:
+    container_name: producer_go
+    build:
+      context: ./src/golang/go_producer
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka0
+      - kafka-connect0
+      - schemaregistry0
+      - kafka-ui
+        
   consumer:
       container_name: consumer
       build:
