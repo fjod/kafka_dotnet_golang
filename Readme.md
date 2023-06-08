@@ -13,7 +13,7 @@ https://github.com/confluentinc/confluent-kafka-go/issues/889
 https://github.com/confluentinc/confluent-kafka-go/issues/128
 
 I followed [this](https://www.jetbrains.com/help/go/how-to-use-wsl-development-environment-in-product.html#create_project_for_wsl) guide 
-and all worked pretty fine in wsl.
+and all worked pretty fine in wsl. Dockerfile for building kafka with golang is from [here](https://github.com/confluentinc/confluent-kafka-go/issues/461).
 
 ## Brief explanation of modes:
 
