@@ -1,20 +1,28 @@
-# syntax=docker/dockerfile:1
+FROM golang:1.17-alpine AS builder
 
-FROM golang:1.18
+ENV PATH="/go/bin:${PATH}"
+ENV GO111MODULE=on
+ENV CGO_ENABLED=1
+ENV GOOS=linux
+ENV GOARCH=amd64
 
-# Set destination for COPY
-WORKDIR /app
+WORKDIR /go/src
 
-# Download Go modules
-COPY go.mod go.sum ./
+COPY go.mod .
+COPY go.sum .
 RUN go mod download
 
-# Copy the source code. Note the slash at the end, as explained in
-# https://docs.docker.com/engine/reference/builder/#copy
-COPY *.go ./
+RUN apk -U add ca-certificates
+RUN apk update && apk upgrade && apk add pkgconf git bash build-base sudo
+RUN git clone https://github.com/edenhill/librdkafka.git && cd librdkafka && ./configure --prefix /usr && make && make install
 
-# Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
+COPY . .
 
-# Run
-CMD ["/producer"]
+RUN go build -tags musl --ldflags "-extldflags -static" -o main .
+
+FROM scratch AS runner
+
+COPY --from=builder /go/src/main /
+COPY producer.properties ./
+
+ENTRYPOINT ["./main", "producer.properties"]
