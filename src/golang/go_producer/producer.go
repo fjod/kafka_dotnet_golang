@@ -27,7 +27,8 @@ func main() {
 
 	// Go-routine to handle message delivery reports and
 	// possibly other event types (errors, stats, etc)
-	go func() {
+	// implemented as deliveryChan, but this way also works
+	/*go func() {
 		for e := range p.Events() {
 			switch ev := e.(type) {
 			case *kafka.Message:
@@ -39,19 +40,32 @@ func main() {
 				}
 			}
 		}
-	}()
+	}()*/
 
 	users := [...]string{"eabara", "jsmith", "sgarcia", "jbernard", "htanaka", "awalther"}
 	items := [...]string{"book", "alarm clock", "t-shirts", "gift card", "batteries"}
+
+	deliveryChan := make(chan kafka.Event)
 
 	for n := 0; n < 10; n++ {
 		key := users[rand.Intn(len(users))]
 		data := items[rand.Intn(len(items))]
 		p.Produce(&kafka.Message{
-			TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
+			TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny}, // change Partition to 0 or 1 if you want to send messages there
 			Key:            []byte(key),
 			Value:          []byte(data),
-		}, nil)
+		}, deliveryChan)
+
+		e, ok := <-deliveryChan
+		if !ok {
+			fmt.Printf("Channel is closed for kafka producer")
+		}
+		m := e.(*kafka.Message)
+		fmt.Printf("Message is produced to topic %s with partition %d: key = %-10s value = %s\n",
+			*m.TopicPartition.Topic,
+			m.TopicPartition.Partition,
+			string(m.Key),
+			m.Value)
 	}
 
 	// Wait for all messages to be delivered
