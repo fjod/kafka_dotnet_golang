@@ -1,7 +1,28 @@
 ---
 version: '2'
 services:
-  
+  producer_go:
+    container_name: producer_go
+    build:
+      context: ./src/golang/go_producer
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka0
+      - kafka-connect0
+      - schemaregistry0
+      - kafka-ui
+
+  consumer_go:
+    container_name: consumer_go
+    build:
+      context: ./src/golang/go_consumer
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka0
+      - kafka-connect0
+      - schemaregistry0
+      - kafka-ui
+
   consumer:
       container_name: consumer
       build:
@@ -13,7 +34,7 @@ services:
         - schemaregistry0
         - kafka-ui
       environment:
-        STUDY_TYPE: ConsumeFromTopic
+        STUDY_TYPE: SimpleConsume
 
   producer:
     container_name: producer

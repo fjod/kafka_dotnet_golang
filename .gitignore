@@ -6,3 +6,4 @@
 /src/dotnet/Common/bin
 /src/dotnet/Common/obj
 .idea
+/src/golang/go_producer/kafka

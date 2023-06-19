@@ -8,6 +8,13 @@ Producers and consumers have different modes. Check src/dotnet/Common/StudyTypes
 To choose mode, simply change it's value in `docker-compose.yml`. 
 All modes work with first cluster kafka0 (29092 inside docker, 9092 for localhost).
 
+For golang, github.com/confluentinc/confluent-kafka-go/kafka does not work on windows:
+https://github.com/confluentinc/confluent-kafka-go/issues/889
+https://github.com/confluentinc/confluent-kafka-go/issues/128
+
+I followed [this](https://www.jetbrains.com/help/go/how-to-use-wsl-development-environment-in-product.html#create_project_for_wsl) guide 
+and all worked pretty fine in wsl. Dockerfile for building kafka with golang is from [here](https://github.com/confluentinc/confluent-kafka-go/issues/461).
+
 ## Brief explanation of modes:
 
 ### Producer:
@@ -34,6 +41,6 @@ for kafka clusters to become operational.
 * Original docker-compose is from [kafka-ui](https://github.com/provectus/kafka-ui/blob/master/documentation/compose/kafka-ui.yaml).
 To observe topics and messages, visit http://localhost:8080/ when containers are up and running.
 
-* Message has random key and value (selected from perspective hardcoded arrays of 10 samples).
+* Message has random key and value (selected from perspective hardcoded arrays of 6 samples).
 
 * If you want to debug code, change `bootstrap.servers=kafka0:29092`  to `bootstrap.servers=localhost:9092` in .properties file.
