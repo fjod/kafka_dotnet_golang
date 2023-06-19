@@ -47,7 +47,7 @@ func main() {
 
 	deliveryChan := make(chan kafka.Event)
 
-	for n := 0; n < 10; n++ {
+	for n := 0; n < 100; n++ {
 		key := users[rand.Intn(len(users))]
 		data := items[rand.Intn(len(items))]
 		p.Produce(&kafka.Message{
