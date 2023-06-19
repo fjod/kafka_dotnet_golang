@@ -9,12 +9,13 @@ public class SimpleConsume
     {
         using var consumer = new ConsumerBuilder<string, string>(configuration.AsEnumerable()).Build();
         consumer.Subscribe(topicName);
-        try
+        while (true)
         {
-            while (true)
+            try
             {
-                var cr = consumer.Consume(TimeSpan.FromMilliseconds(1000));
-             
+
+                var cr = consumer.Consume(TimeSpan.FromMilliseconds(100));
+
                 if (cr != null)
                 {
                     Console.WriteLine(
@@ -22,14 +23,16 @@ public class SimpleConsume
                     consumer.Commit(cr);
                 }
             }
-        }
-        catch (OperationCanceledException)
-        {
-            // Ctrl-C was pressed.
-        }
-        finally
-        {
-            consumer.Close();
+            catch (OperationCanceledException)
+            {
+                // Ctrl-C was pressed.
+                consumer.Close();
+                return;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: " + ex.Message);
+            }
         }
     }
 }

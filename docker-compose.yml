@@ -34,7 +34,7 @@ services:
         - schemaregistry0
         - kafka-ui
       environment:
-        STUDY_TYPE: ConsumeFromTopic
+        STUDY_TYPE: SimpleConsume
 
   producer:
     container_name: producer
