@@ -5,5 +5,6 @@ public enum ProducerStudyType
     SimpleProduce,
     WithNewTopic,
     WithCustomPartitioner,
-    SimpleProduceWithParameters
+    SimpleProduceWithParameters,
+    ProduceWithSerialization
 }

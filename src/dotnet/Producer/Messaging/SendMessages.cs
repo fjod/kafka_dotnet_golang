@@ -7,7 +7,7 @@ public abstract class SendMessages
     protected string firstTopicName = "first.messages";
     protected readonly string[] Users = {"eabara", "jsmith", "sgarcia", "jbernard", "htanaka", "awalther"};
     private readonly string[] _items = {"book", "alarm clock", "t-shirts", "gift card", "batteries"};
-    private readonly Random _rnd = new Random();
+    protected readonly Random _rnd = new Random();
     protected async Task Produce(IProducer<string,string> producer, string topic, int amount = 10)
     {
         var numProduced = 0;

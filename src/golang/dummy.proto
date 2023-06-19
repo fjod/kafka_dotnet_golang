@@ -1,0 +1,9 @@
+syntax = "proto3";
+package tutorial;
+
+option go_package = "github.com/protocolbuffers/protobuf/fjod/kafka/dummy";
+
+message Dummy {
+  string name = 1;
+  int32 age = 2;
+}

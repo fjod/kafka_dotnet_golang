@@ -25,4 +25,4 @@ FROM scratch AS runner
 COPY --from=builder /go/src/main /
 COPY producer.properties ./
 
-ENTRYPOINT ["./main", "producer.properties"]
+ENTRYPOINT ["./main", "producer.properties", "http://schemaregistry0:8085"]

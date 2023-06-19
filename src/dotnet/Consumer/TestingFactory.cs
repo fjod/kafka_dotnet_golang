@@ -23,12 +23,16 @@ public static class TestingFactory
                 var df = new Dataflow();
                 await df.Perform(configuration, FirstTopicName);
             },
-            
             ConsumerStudyType.ConsumeFromTopic => configuration =>
             {
                 var cft = new ConsumeFromTopic();
                 cft.Perform(configuration, FirstTopicName);
                 return Task.CompletedTask;
+            },
+            ConsumerStudyType.ConsumeWithSerialization => async configuration =>
+            {
+                var df = new ConsumeWithSerializer();
+                await df.Perform(configuration);
             },
             _ => throw new ArgumentOutOfRangeException(nameof(input), input, "no delegate for such input")
         };
