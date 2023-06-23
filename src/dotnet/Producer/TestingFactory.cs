@@ -31,6 +31,11 @@ public static class TestingFactory
                 var withParams = new ProduceWithParameters();
                 await withParams.Perform(configuration);
             },
+            ProducerStudyType.ProduceWithSerialization => async configuration =>
+            {
+                var serializer = new ProduceWithSerializer();
+                await serializer.Perform(configuration);
+            },
             _ => throw new ArgumentOutOfRangeException(nameof(input), input, "no delegate for such input")
         };
     }

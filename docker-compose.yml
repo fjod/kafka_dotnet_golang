@@ -11,6 +11,8 @@ services:
       - kafka-connect0
       - schemaregistry0
       - kafka-ui
+    environment:
+      STUDY_TYPE: ProduceWithSerialization
 
   consumer_go:
     container_name: consumer_go
@@ -22,6 +24,8 @@ services:
       - kafka-connect0
       - schemaregistry0
       - kafka-ui
+    environment:
+      STUDY_TYPE: ConsumeWithSerialization
 
   consumer:
       container_name: consumer
@@ -34,7 +38,7 @@ services:
         - schemaregistry0
         - kafka-ui
       environment:
-        STUDY_TYPE: SimpleConsume
+        STUDY_TYPE: ConsumeWithSerialization
 
   producer:
     container_name: producer
@@ -47,7 +51,7 @@ services:
       - schemaregistry0
       - kafka-ui
     environment:
-      STUDY_TYPE: SimpleProduceWithParameters
+      STUDY_TYPE: ProduceWithSerialization
       PRODUCE_DELAY_MS: 1000
       PRODUCE_AMOUNT: 5
       

@@ -4,5 +4,6 @@ public enum ConsumerStudyType
 {
     SimpleConsume,
     UsingDataflow,
-    ConsumeFromTopic
+    ConsumeFromTopic,
+    ConsumeWithSerialization
 }

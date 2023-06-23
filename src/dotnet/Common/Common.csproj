@@ -8,9 +8,11 @@
 
     <ItemGroup>
       <PackageReference Include="Confluent.Kafka" Version="2.1.1" />
+      <PackageReference Include="Google.Protobuf" Version="3.23.3" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Ini" Version="7.0.0" />
+      <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.3.2" />
     </ItemGroup>
 
 </Project>
