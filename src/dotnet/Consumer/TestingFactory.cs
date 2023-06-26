@@ -14,6 +14,7 @@ public static class TestingFactory
         {
             ConsumerStudyType.SimpleConsume => configuration =>
             {
+                Console.WriteLine(1);
                 var sc = new SimpleConsume();
                 sc.Perform(configuration, FirstTopicName);
                 return Task.CompletedTask;

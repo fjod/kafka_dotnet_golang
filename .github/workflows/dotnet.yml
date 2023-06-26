@@ -27,5 +27,5 @@ jobs:
       working-directory: ./src/dotnet/
       run: dotnet build --no-restore
     - name: Test
-      working-directory: ./src/dotnet/
+      working-directory: ./test/DotnetTest/
       run: dotnet test --no-build --verbosity normal

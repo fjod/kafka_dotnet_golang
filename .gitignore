@@ -7,3 +7,5 @@
 /src/dotnet/Common/obj
 .idea
 /src/golang/go_producer/kafka
+/test/DotnetTest/obj
+/test/DotnetTest/bin
